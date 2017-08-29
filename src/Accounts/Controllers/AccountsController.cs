@@ -23,6 +23,21 @@ namespace Accounts.Controllers
         {
             return _context.Accounts.Include(x=>x.User).FirstOrDefaultAsync(x => x.UserId == userId);
         }
-        //post for user
+        [HttpPost("new")]
+        public async Task<Guid> AddNew(NewAccount newAccount)
+        {
+            var account = new Account
+            {
+                Id=Guid.NewGuid(),
+                Balance = newAccount.InitialDeposit,
+                UserId = newAccount.UserId,
+                ModifiedOn = DateTime.Now,
+                CreatedOn = DateTime.Now
+            };
+
+            _context.Accounts.Add(account);
+            await _context.SaveChangesAsync();
+            return account.Id;
+        }
     }
 }

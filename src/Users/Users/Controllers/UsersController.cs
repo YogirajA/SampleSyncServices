@@ -28,16 +28,16 @@
             return _context.Users.FirstOrDefaultAsync(user => user.Id == id);
         }
         
-        [HttpPost("Add")]
-        public async Task<Guid> Add([FromBody]UserModel userModel)
+        [HttpPost("new")]
+        public async Task<Guid> AddNew([FromBody]NewUser newUser)
         {
             var user = new User
             {
                 CreatedOn = DateTime.Now,
                 ModifiedOn = DateTime.Now,
                 Id = Guid.NewGuid(),
-                FirstName = userModel.FirstName,
-                LastName = userModel.LastName
+                FirstName = newUser.FirstName,
+                LastName = newUser.LastName
             };
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
