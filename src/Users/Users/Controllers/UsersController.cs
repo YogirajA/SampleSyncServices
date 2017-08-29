@@ -15,7 +15,7 @@
         {
             _context = context;
         }
-        // GET api/values
+
         [HttpGet("all")]
         public async Task<List<User>> All()
         {
@@ -27,8 +27,7 @@
         {
             return await _context.Users.FirstOrDefaultAsync(user => user.Id == id);
         }
-
-        // POST api/values
+        
         [HttpPost("Add")]
         public async Task<Guid> Add([FromBody]UserModel userModel)
         {
@@ -44,11 +43,5 @@
             await _context.SaveChangesAsync();
             return user.Id;
         }
-    }
-
-    public class UserModel
-    {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
     }
 }
