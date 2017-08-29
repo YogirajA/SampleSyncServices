@@ -13,6 +13,11 @@ namespace Accounts.Controllers
         {
             _context = context;
         }
+        [Route("{id:guid}")]
+        public Task<Account> Get(Guid id)
+        {
+            return _context.Accounts.FirstOrDefaultAsync(x => x.Id == id);
+        }
         [Route("foruser/{userId:guid}")]
         public Task<Account> ForUser(Guid userId)
         {
