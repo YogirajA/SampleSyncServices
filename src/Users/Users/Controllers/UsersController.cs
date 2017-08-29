@@ -17,15 +17,15 @@
         }
 
         [HttpGet("all")]
-        public async Task<List<User>> All()
+        public Task<List<User>> All()
         {
-            return await _context.Users.ToListAsync();
+            return _context.Users.ToListAsync();
         }
         
         [Route("{id:guid}")]
-        public async Task<User> Get(Guid id)
+        public Task<User> Get(Guid id)
         {
-            return await _context.Users.FirstOrDefaultAsync(user => user.Id == id);
+            return _context.Users.FirstOrDefaultAsync(user => user.Id == id);
         }
         
         [HttpPost("Add")]
