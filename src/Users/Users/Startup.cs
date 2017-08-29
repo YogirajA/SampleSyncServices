@@ -10,6 +10,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Users
 {
+    using Controllers;
+    using Microsoft.EntityFrameworkCore;
+
     public class Startup
     {
         public Startup(IHostingEnvironment env)
@@ -29,6 +32,7 @@ namespace Users
         {
             // Add framework services.
             services.AddMvc();
+            services.AddDbContext<UsersContext>(options => options.UseSqlServer(Configuration.GetConnectionString("UsersAppDB")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
