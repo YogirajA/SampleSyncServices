@@ -14,8 +14,8 @@
 
         private static async Task AsyncMain()
         {
-            await SqlServerEndpoint.StartInstance().ConfigureAwait(false);
             await RabbitMqEndpoint.StartInstance().ConfigureAwait(false);
+            await SqlServerEndpoint.StartInstance().ConfigureAwait(false);
        
         }
     

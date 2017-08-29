@@ -8,21 +8,24 @@
 
     public class RabbitMessageHandler : IHandleMessages<NewUser>
     {
+        private readonly AccountsContext _context;
+
+        public RabbitMessageHandler(AccountsContext context)
+        {
+            _context = context;
+        }
         public async Task Handle(NewUser message, IMessageHandlerContext context)
         {
-            using (var dbcontext = new AccountsContext())
+            var user = new User
             {
-                var user = new User
-                {
-                    CreatedOn = message.CreatedOn,
-                    ModifiedOn = message.ModifiedOn,
-                    FirstName = message.FirstName,
-                    LastName = message.LastName,
-                    Id = message.Id
-                };
-                dbcontext.Users.Add(user);
-                await dbcontext.SaveChangesAsync();
-            }
+                CreatedOn = message.CreatedOn,
+                ModifiedOn = message.ModifiedOn,
+                FirstName = message.FirstName,
+                LastName = message.LastName,
+                Id = message.Id
+            };
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
         }
     }
 

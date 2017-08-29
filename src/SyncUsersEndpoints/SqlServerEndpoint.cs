@@ -11,9 +11,11 @@ namespace SyncUsersEndpoints
             var scanner = endpointConfiguration.AssemblyScanner();
             scanner.ExcludeAssemblies("RabbitMQ.Client", "NServiceBus.Transports.RabbitMQ");
             scanner.ExcludeTypes(typeof(RabbitMessageHandler));
+
             var transport = endpointConfiguration.UseTransport<SqlServerTransport>()
                 .ConnectionStringName("UsersAppDatabase");
             transport.Transactions(TransportTransactionMode.None);
+
             endpointConfiguration.UsePersistence<InMemoryPersistence>();
             endpointConfiguration.SendFailedMessagesTo("error");
             endpointConfiguration.AuditProcessedMessagesTo("audit");
