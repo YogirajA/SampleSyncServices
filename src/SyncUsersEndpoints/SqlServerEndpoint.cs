@@ -8,10 +8,6 @@ namespace SyncUsersEndpoints
         public  static async Task StartInstance()
         {
             var endpointConfiguration = new EndpointConfiguration("SyncUsers.SqlServerEndpoint");
-            var scanner = endpointConfiguration.AssemblyScanner();
-            scanner.ExcludeAssemblies("RabbitMQ.Client", "NServiceBus.Transports.RabbitMQ");
-            scanner.ExcludeTypes(typeof(RabbitMessageHandler));
-
             var transport = endpointConfiguration.UseTransport<SqlServerTransport>()
                 .ConnectionStringName("UsersAppDatabase");
             transport.Transactions(TransportTransactionMode.None);

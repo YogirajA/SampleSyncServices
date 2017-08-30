@@ -1,4 +1,4 @@
-namespace SyncUsersEndpoints
+namespace SyncUserSubscriber
 {
     using System;
     using System.Data.Entity;

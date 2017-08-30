@@ -1,8 +1,7 @@
-namespace SyncUsersEndpoints
+namespace SyncUserSubscriber
 {
     using System.Threading.Tasks;
     using NServiceBus;
-    using RabbitMQ.Client;
 
     public class RabbitMqEndpoint
     {
@@ -11,10 +10,6 @@ namespace SyncUsersEndpoints
         {
           
             var endpointConfiguration = new EndpointConfiguration("SyncUsers.RabbitMqEndpoint");
-            var scanner = endpointConfiguration.AssemblyScanner();
-            scanner.ExcludeAssemblies("NServiceBus.Transports.SqlServer");
-            scanner.ExcludeTypes(typeof(SqlServerMessageHandler));
-           
             var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
           	transport.Transactions(TransportTransactionMode.None);
             //transport.DelayedDelivery().DisableTimeoutManager();

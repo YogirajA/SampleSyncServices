@@ -1,8 +1,7 @@
-﻿namespace SyncUsersEndpoints
+﻿namespace SyncUserSubscriber
 {
     using System;
     using System.Threading.Tasks;
-
 
     class Program
     {
@@ -14,8 +13,8 @@
 
         private static async Task AsyncMain()
         {
-            await SqlServerEndpoint.StartInstance().ConfigureAwait(false);
+            await RabbitMqEndpoint.StartInstance().ConfigureAwait(false);
+          
         }
-    
     }
 }

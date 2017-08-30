@@ -6,17 +6,12 @@ namespace SyncUsersEndpoints
     using Messages;
     using NServiceBus;
     using RabbitMQ.Client;
-    using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
-    using JsonSerializer = Newtonsoft.Json.JsonSerializer;
-
 
     public class SqlServerMessageHandler : IHandleMessages<NewUser>
     {
         public Task Handle(NewUser message, IMessageHandlerContext context)
         {
-           // RabbitMqEndpoint.Instance.Send("SyncUsers.RabbitMqEndpoint",message);
-
             var factory = new ConnectionFactory
             {
                 HostName = "localhost",
@@ -36,9 +31,9 @@ namespace SyncUsersEndpoints
                     var jObjectFromMessage = JObject.FromObject(message);
                     jObjectFromMessage.AddFirst(new JProperty("$type", $"{nameof(Messages)}.{nameof(NewUser)}"));
                     var json = jObjectFromMessage.ToString();
-                   
-
                     var rabbitMessage = Encoding.UTF8.GetBytes(json);
+
+                    channel.QueueDeclare("SyncUsers.RabbitMqEndpoint",durable:true, autoDelete:false,exclusive: false);
                     channel.BasicPublish(string.Empty, "SyncUsers.RabbitMqEndpoint", false, properties, rabbitMessage);
 
                 }

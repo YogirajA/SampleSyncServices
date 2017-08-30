@@ -1,4 +1,4 @@
-﻿namespace SyncUsersEndpoints
+﻿namespace SyncUserSubscriber
 {
     using System.Threading.Tasks;
     using Messages;
