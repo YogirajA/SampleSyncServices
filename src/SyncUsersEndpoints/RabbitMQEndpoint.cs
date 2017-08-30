@@ -14,7 +14,7 @@ namespace SyncUsersEndpoints
             var scanner = endpointConfiguration.AssemblyScanner();
             scanner.ExcludeAssemblies("NServiceBus.Transports.SqlServer");
             scanner.ExcludeTypes(typeof(SqlServerMessageHandler));
-
+           
             var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
           	transport.Transactions(TransportTransactionMode.None);
             //transport.DelayedDelivery().DisableTimeoutManager();
@@ -23,7 +23,7 @@ namespace SyncUsersEndpoints
             endpointConfiguration.SendFailedMessagesTo("error");
             endpointConfiguration.EnableInstallers();
             endpointConfiguration.UsePersistence<InMemoryPersistence>();
-
+            endpointConfiguration.UseSerialization<JsonSerializer>();
             endpointConfiguration.RegisterComponents(configure =>
             {
                 configure.ConfigureComponent<AccountsContext>(DependencyLifecycle.InstancePerUnitOfWork);
