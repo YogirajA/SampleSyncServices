@@ -1,16 +1,16 @@
-namespace SyncUsersEndpoints
+﻿namespace Users
 {
     using System;
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
 
-    public class AccountsContext : DbContext
+    public class UsersContext : DbContext
     {
+        public UsersContext(DbContextOptions options) : base(options) { }
+        
         public DbSet<User> Users { get; set; }
-        public AccountsContext():base("AccountsAppDatabase")
-        {
-            
-        }
+       
     }
+
     public class User
     {
         public Guid Id { get; set; }
