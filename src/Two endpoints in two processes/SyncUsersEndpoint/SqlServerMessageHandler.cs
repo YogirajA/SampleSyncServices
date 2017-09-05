@@ -1,6 +1,7 @@
 namespace SyncUsersEndpoints
 {
     using System;
+    using System.Collections.Generic;
     using System.Text;
     using System.Threading.Tasks;
     using Messages;
@@ -25,18 +26,21 @@ namespace SyncUsersEndpoints
                 {
                     using (var channel = connection.CreateModel())
                     {
+                        var typeName = typeof(NewUser).FullName;
                         var properties = channel.CreateBasicProperties();
                         properties.MessageId = Guid.NewGuid().ToString();
+                        properties.Headers =
+                            new Dictionary<string, object> {{"NServiceBus.EnclosedMessageTypes", typeName}};
 
                         var jObjectFromMessage = JObject.FromObject(message);
-                        var typeName = typeof(NewUser).FullName;
-                        jObjectFromMessage.AddFirst(new JProperty("$type", typeName));
+                      //  jObjectFromMessage.AddFirst(new JProperty("$type", typeName));
                         var serializedMessage = jObjectFromMessage.ToString();
                         var messageBytes = Encoding.UTF8.GetBytes(serializedMessage);
                         channel.QueueDeclare("SyncUsers.RabbitMqEndpoint", true, autoDelete: false,
                             exclusive: false);
                         channel.BasicPublish(string.Empty, "SyncUsers.RabbitMqEndpoint", false, properties,
                             messageBytes);
+                        
                     }
                 }
             });
