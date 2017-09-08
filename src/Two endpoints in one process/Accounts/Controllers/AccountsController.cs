@@ -4,7 +4,7 @@ namespace Accounts.Controllers
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
-    
+
     [Route("api/[controller]")]
     public class AccountsController : Controller
     {

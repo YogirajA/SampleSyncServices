@@ -6,7 +6,7 @@
 
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             AsyncMain().GetAwaiter().GetResult();
             Console.ReadKey();
@@ -16,6 +16,5 @@
         {
             await SqlServerEndpoint.StartInstance().ConfigureAwait(false);
         }
-    
     }
 }

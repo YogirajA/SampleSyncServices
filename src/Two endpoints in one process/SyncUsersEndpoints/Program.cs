@@ -6,7 +6,7 @@
 
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             AsyncMain().GetAwaiter().GetResult();
             Console.ReadKey();
@@ -16,8 +16,7 @@
         {
             await RabbitMqEndpoint.StartInstance().ConfigureAwait(false);
             await SqlServerEndpoint.StartInstance().ConfigureAwait(false);
-       
         }
-    
+
     }
 }

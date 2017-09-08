@@ -5,7 +5,7 @@
 
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             AsyncMain().GetAwaiter().GetResult();
             Console.ReadKey();
@@ -14,7 +14,6 @@
         private static async Task AsyncMain()
         {
             await RabbitMqEndpoint.StartInstance().ConfigureAwait(false);
-          
         }
     }
 }
