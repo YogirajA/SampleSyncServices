@@ -22,7 +22,7 @@ namespace SyncUserSubscriber
             {
                 configure.ConfigureComponent<AccountsContext>(DependencyLifecycle.InstancePerUnitOfWork);
             });
-            Instance = await Endpoint.Start(endpointConfiguration).ConfigureAwait(false); ;
+            Instance = await Endpoint.Start(endpointConfiguration).ConfigureAwait(false);
 
         }
 
