@@ -7,8 +7,7 @@
     {
         static async Task Main()
         {
-            await RabbitMqEndpoint.StartInstance().ConfigureAwait(false);
-            await SqlServerEndpoint.StartInstance().ConfigureAwait(false);
+            await Task.WhenAll(RabbitMqEndpoint.StartInstance(), SqlServerEndpoint.StartInstance()).ConfigureAwait(false);
             Console.ReadKey();
         }
     }
