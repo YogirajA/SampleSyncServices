@@ -60,7 +60,6 @@
   <ItemGroup>
     <Compile Include="AccountsContext.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RabbitMessageHandler.cs" />
     <Compile Include="RabbitMqEndpoint.cs" />
   </ItemGroup>
@@ -73,6 +72,9 @@
       <Project>{2f770b29-36cd-4885-a98e-5fa8f35dc4fd}</Project>
       <Name>Messages</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
