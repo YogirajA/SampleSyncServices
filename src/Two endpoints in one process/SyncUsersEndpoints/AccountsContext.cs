@@ -8,7 +8,6 @@
         public DbSet<User> Users { get; set; }
         public AccountsContext():base("AccountsAppDatabase")
         {
-            
         }
     }
     public class User
