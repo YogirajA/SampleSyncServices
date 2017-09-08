@@ -6,10 +6,9 @@ namespace SyncUsersEndpoints
 
     public class SqlServerMessageHandler : IHandleMessages<NewUser>
     {
-        public async Task Handle(NewUser message, IMessageHandlerContext context)
+        public Task Handle(NewUser message, IMessageHandlerContext context)
         {
-            await RabbitMqEndpoint.Instance.Send("SyncUsers.RabbitMqEndpoint",message);
-       
+            return RabbitMqEndpoint.Instance.Send("SyncUsers.RabbitMqEndpoint",message);
         }
     }
 }
