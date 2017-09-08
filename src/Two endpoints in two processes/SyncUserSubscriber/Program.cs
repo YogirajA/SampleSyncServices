@@ -5,15 +5,10 @@
 
     class Program
     {
-        static void Main()
-        {
-            AsyncMain().GetAwaiter().GetResult();
-            Console.ReadKey();
-        }
-
-        private static async Task AsyncMain()
+        static async Task Main()
         {
             await RabbitMqEndpoint.StartInstance().ConfigureAwait(false);
+            Console.ReadKey();
         }
     }
 }

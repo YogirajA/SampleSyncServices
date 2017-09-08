@@ -6,15 +6,11 @@
 
     class Program
     {
-        static void Main()
+        static async Task Main()
         {
-            AsyncMain().GetAwaiter().GetResult();
+            await SqlServerEndpoint.StartInstance().ConfigureAwait(false);
             Console.ReadKey();
         }
 
-        private static async Task AsyncMain()
-        {
-            await SqlServerEndpoint.StartInstance().ConfigureAwait(false);
-        }
     }
 }
