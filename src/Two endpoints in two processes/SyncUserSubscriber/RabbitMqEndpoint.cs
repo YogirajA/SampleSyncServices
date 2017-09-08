@@ -8,7 +8,6 @@ namespace SyncUserSubscriber
         public static IEndpointInstance Instance { get; private set; }
         public static async Task StartInstance()
         {
-
             var endpointConfiguration = new EndpointConfiguration("SyncUsers.RabbitMqEndpoint");
             var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
           	transport.Transactions(TransportTransactionMode.None);
@@ -23,7 +22,7 @@ namespace SyncUserSubscriber
             {
                 configure.ConfigureComponent<AccountsContext>(DependencyLifecycle.InstancePerUnitOfWork);
             });
-            Instance = await Endpoint.Start(endpointConfiguration);
+            Instance = await Endpoint.Start(endpointConfiguration).ConfigureAwait(false); ;
 
         }
 
