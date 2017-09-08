@@ -11,6 +11,5 @@
             await SqlServerEndpoint.StartInstance().ConfigureAwait(false);
             Console.ReadKey();
         }
-
     }
 }

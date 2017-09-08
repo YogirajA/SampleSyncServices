@@ -19,7 +19,7 @@ namespace SyncUsersEndpoints
                 UserName = "guest",
                 Password = "guest"
             };
-            
+
             await Task.Run(() =>
             {
                 using (var connection = factory.CreateConnection())
@@ -40,7 +40,6 @@ namespace SyncUsersEndpoints
                             exclusive: false);
                         channel.BasicPublish(string.Empty, "SyncUsers.RabbitMqEndpoint", false, properties,
                             messageBytes);
-                        
                     }
                 }
             });

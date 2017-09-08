@@ -18,6 +18,5 @@ namespace SyncUsersEndpoints
             endpointConfiguration.UseSerialization<JsonSerializer>();
             Instance = await Endpoint.Start(endpointConfiguration);
         }
-        
     }
 }
