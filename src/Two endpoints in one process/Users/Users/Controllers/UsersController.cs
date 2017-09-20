@@ -21,13 +21,13 @@
         {
             return _context.Users.ToListAsync();
         }
-        
+
         [Route("{id:guid}")]
         public Task<User> Get(Guid id)
         {
             return _context.Users.FirstOrDefaultAsync(user => user.Id == id);
         }
-        
+
         [HttpPost("new")]
         public async Task<Guid> AddNew([FromBody]NewUser newUser)
         {

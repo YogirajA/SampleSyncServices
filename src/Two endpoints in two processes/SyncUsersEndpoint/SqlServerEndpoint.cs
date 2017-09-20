@@ -16,8 +16,7 @@ namespace SyncUsersEndpoints
             endpointConfiguration.SendFailedMessagesTo("error");
             endpointConfiguration.AuditProcessedMessagesTo("audit");
             endpointConfiguration.UseSerialization<JsonSerializer>();
-            Instance = await Endpoint.Start(endpointConfiguration);
+            Instance = await Endpoint.Start(endpointConfiguration).ConfigureAwait(false); ;
         }
-        
     }
 }

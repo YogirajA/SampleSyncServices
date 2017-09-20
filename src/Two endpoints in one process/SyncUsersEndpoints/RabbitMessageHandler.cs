@@ -12,7 +12,7 @@
         {
             _context = context;
         }
-        public async Task Handle(NewUser message, IMessageHandlerContext context)
+        public Task Handle(NewUser message, IMessageHandlerContext context)
         {
             var user = new User
             {
@@ -23,7 +23,7 @@
                 Id = message.Id
             };
             _context.Users.Add(user);
-            await _context.SaveChangesAsync();
+            return _context.SaveChangesAsync();
         }
     }
 }

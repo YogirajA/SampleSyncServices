@@ -6,7 +6,7 @@ namespace Accounts
     public class AccountsContext : DbContext
     {
         public AccountsContext(DbContextOptions options) : base(options) { }
-        
+
         public DbSet<Account> Accounts { get; set; }
         public DbSet<User> Users { get; set; }
     }

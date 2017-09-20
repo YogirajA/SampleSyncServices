@@ -5,7 +5,7 @@ namespace SyncUsersEndpoints
     public class SqlServerEndpoint
     {
         public static IEndpointInstance Instance { get; private set; }
-        public  static async Task StartInstance()
+        public static async Task StartInstance()
         {
             var endpointConfiguration = new EndpointConfiguration("SyncUsers.SqlServerEndpoint");
             var scanner = endpointConfiguration.AssemblyScanner();
@@ -20,8 +20,8 @@ namespace SyncUsersEndpoints
             endpointConfiguration.SendFailedMessagesTo("error");
             endpointConfiguration.AuditProcessedMessagesTo("audit");
             endpointConfiguration.UseSerialization<JsonSerializer>();
-            Instance = await Endpoint.Start(endpointConfiguration);
+            Instance = await Endpoint.Start(endpointConfiguration).ConfigureAwait(false);
         }
-        
+
     }
 }

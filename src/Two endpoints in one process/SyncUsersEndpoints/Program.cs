@@ -3,21 +3,12 @@
     using System;
     using System.Threading.Tasks;
 
-
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main()
         {
-            AsyncMain().GetAwaiter().GetResult();
+            await Task.WhenAll(RabbitMqEndpoint.StartInstance(), SqlServerEndpoint.StartInstance()).ConfigureAwait(false);
             Console.ReadKey();
         }
-
-        private static async Task AsyncMain()
-        {
-            await RabbitMqEndpoint.StartInstance().ConfigureAwait(false);
-            await SqlServerEndpoint.StartInstance().ConfigureAwait(false);
-       
-        }
-    
     }
 }
