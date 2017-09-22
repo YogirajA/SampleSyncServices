@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net461</TargetFrameworks>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="NServiceBus" Version="6.*" />
+    <PackageReference Include="EntityFramework" Version="6.*" />
+    <PackageReference Include="NServiceBus.SqlServer" Version="3.*" />
+    <PackageReference Include="RabbitMQ.Client" Version="5.*" />
+    <PackageReference Include="Microsoft.Diagnostics.Tracing.EventSource.Redist" Version="1.*" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.*" />
+    <ProjectReference Include="..\Messages\Messages.csproj"/>
+  </ItemGroup>
+</Project>
