@@ -11,37 +11,31 @@ namespace SyncUsersEndpoints
 
     public class SqlServerMessageHandler : IHandleMessages<NewUser>
     {
+        private readonly IModel _model;
+
+        public SqlServerMessageHandler(IModel model)
+        {
+            _model = model;
+        }
+
         public async Task Handle(NewUser message, IMessageHandlerContext context)
         {
-            var factory = new ConnectionFactory
-            {
-                HostName = "localhost",
-                UserName = "guest",
-                Password = "guest"
-            };
-
             await Task.Run(() =>
             {
-                using (var connection = factory.CreateConnection())
-                {
-                    using (var channel = connection.CreateModel())
-                    {
-                        var typeName = typeof(NewUser).FullName;
-                        var properties = channel.CreateBasicProperties();
-                        properties.MessageId = Guid.NewGuid().ToString();
-                        properties.Headers =
-                            new Dictionary<string, object> {{"NServiceBus.EnclosedMessageTypes", typeName}};
+                var typeName = typeof(NewUser).FullName;
+                var properties = _model.CreateBasicProperties();
+                properties.MessageId = Guid.NewGuid().ToString();
+                properties.Headers =
+                    new Dictionary<string, object> {{"NServiceBus.EnclosedMessageTypes", typeName}};
 
-                        var jObjectFromMessage = JObject.FromObject(message);
-                      //  jObjectFromMessage.AddFirst(new JProperty("$type", typeName));
-                        var serializedMessage = jObjectFromMessage.ToString();
-                        var messageBytes = Encoding.UTF8.GetBytes(serializedMessage);
-                        channel.QueueDeclare("SyncUsers.RabbitMqEndpoint", true, autoDelete: false,
-                            exclusive: false);
-                        channel.BasicPublish(string.Empty, "SyncUsers.RabbitMqEndpoint", false, properties,
-                            messageBytes);
-                    }
-                }
+                var jObjectFromMessage = JObject.FromObject(message);
+                //  jObjectFromMessage.AddFirst(new JProperty("$type", typeName));
+                var serializedMessage = jObjectFromMessage.ToString();
+                var messageBytes = Encoding.UTF8.GetBytes(serializedMessage);
+                _model.QueueDeclare("SyncUsers.RabbitMqEndpoint", true, autoDelete: false,
+                    exclusive: false);
+                _model.BasicPublish(string.Empty, "SyncUsers.RabbitMqEndpoint", false, properties,
+                    messageBytes);
             });
         }
     }
