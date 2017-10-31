@@ -1,12 +1,7 @@
 ﻿namespace SyncUsersTests
 {
-	using System;
-	using System.Linq;
-	using System.Reflection;
-	using System.Threading.Tasks;
-    using Messages;
-	using Messages.V1;
-	using NServiceBus.Testing;
+    using Messages.V1;
+    using NServiceBus.Testing;
     using RabbitMQ.Fakes;
     using Shouldly;
     using SyncUsersEndpoints;
@@ -18,14 +13,14 @@
         public void HandlesMessageSuccessfully()
         {
             var context = new TestableMessageHandlerContext();
-            
+
             var fakeModel = new FakeModel(new RabbitServer());
 
             var handler = new SqlServerMessageHandler(fakeModel);
 
             Should.NotThrow(async () => await handler.Handle(new NewUser(), context).ConfigureAwait(false));
-            
+
         }
-		   
+
     }
 }
