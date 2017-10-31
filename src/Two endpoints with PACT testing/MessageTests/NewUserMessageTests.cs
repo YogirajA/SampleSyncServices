@@ -11,15 +11,17 @@
     {
         //https://docs.particular.net/nservicebus/messaging/evolving-contracts
         [Fact]
-        public void TestServicePact()
+        public void TestNewUserMessageV1Contract()
         {
-            var ob = typeof(NewUser);
+            var newUserType = typeof(NewUser);
 
-            var properties = ob.GetProperties();
+            newUserType.Namespace.Contains("V1").ShouldBe(true);
+
+            var properties = newUserType.GetProperties();
 
             properties.Length.ShouldBe(5);
 
-            AssertPropertySpecs(properties.FirstOrDefault(t => t.Name.Equals(nameof(NewUser.Id))), typeof(Guid));
+            AssertPropertySpecs(properties.FirstOrDefault(t => t.Name.Equals(nameof(NewUser.Id))), typeof(Guid?));
 
             AssertPropertySpecs(properties.FirstOrDefault(t => t.Name.Equals(nameof(NewUser.FirstName))),
                 typeof(string));
@@ -28,9 +30,9 @@
                 typeof(string));
 
             AssertPropertySpecs(properties.FirstOrDefault(t => t.Name.Equals(nameof(NewUser.CreatedOn))),
-                typeof(DateTime));
+                typeof(DateTime?));
             AssertPropertySpecs(properties.FirstOrDefault(t => t.Name.Equals(nameof(NewUser.ModifiedOn))),
-                typeof(DateTime));
+                typeof(DateTime?));
         }
 
         private static void AssertPropertySpecs(PropertyInfo firstOrDefault, Type propertyType)
