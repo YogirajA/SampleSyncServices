@@ -21,27 +21,27 @@
 
             properties.Length.ShouldBe(5);
 
-            AssertPropertySpecs(properties.FirstOrDefault(t => t.Name.Equals(nameof(NewUser.Id))), typeof(Guid?));
+            AssertPropertySpecs<Guid?>(properties[0],"Id");
 
-            AssertPropertySpecs(properties.FirstOrDefault(t => t.Name.Equals(nameof(NewUser.FirstName))),
-                typeof(string));
+            AssertPropertySpecs<string>(properties[1], "FirstName");
 
-            AssertPropertySpecs(properties.FirstOrDefault(t => t.Name.Equals(nameof(NewUser.LastName))),
-                typeof(string));
+            AssertPropertySpecs<string>(properties[2], "LastName");
 
-            AssertPropertySpecs(properties.FirstOrDefault(t => t.Name.Equals(nameof(NewUser.CreatedOn))),
-                typeof(DateTime?));
-            AssertPropertySpecs(properties.FirstOrDefault(t => t.Name.Equals(nameof(NewUser.ModifiedOn))),
-                typeof(DateTime?));
+            AssertPropertySpecs<DateTime?>(properties[3], "CreatedOn");
+
+            AssertPropertySpecs<DateTime?>(properties[4], "ModifiedOn");
         }
 
-        private static void AssertPropertySpecs(PropertyInfo firstOrDefault, Type propertyType)
+        private static void AssertPropertySpecs<TExpected>(PropertyInfo propertyUnderTest,string expectedName)
         {
-            firstOrDefault.ShouldNotBeNull();
+            propertyUnderTest.ShouldNotBeNull();
 
-            firstOrDefault.PropertyType.ShouldBe(propertyType);
+            propertyUnderTest.PropertyType.ShouldBe(typeof(TExpected));
 
-            firstOrDefault.PropertyType.IsPublic.ShouldBeTrue();
+            propertyUnderTest.PropertyType.IsPublic.ShouldBeTrue();
+
+            propertyUnderTest.Name.ShouldBe(expectedName);
+        
         }
     }
 }
