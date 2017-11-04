@@ -1,5 +1,6 @@
 ﻿namespace SyncUsersTests
 {
+    using System;
     using Messages.V1;
     using NServiceBus.Testing;
     using RabbitMQ.Fakes;
