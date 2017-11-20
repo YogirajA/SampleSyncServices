@@ -35,7 +35,7 @@ AS
   select convert(uniqueidentifier, hashbytes('MD5',convert(varchar(255),i.Id))) as Id,
   'true' as Recoverable,
   '' as Headers,
-  convert(varbinary(255), '{ $type: "Messages.NewUser", Id: "' + convert(varchar(255),i.Id) + '",FirstName:"' + convert(varchar(255),i.FirstName) + '",LastName:"' + convert(varchar(255),i.LastName) + '",ModifiedOn:"' + convert(varchar(255),i.ModifiedOn) + '",CreatedOn:"' + convert(varchar(255),i.CreatedOn) + '"}') as Body
+  convert(varbinary(255), '{ $type: "Messages.V1.NewUser", Id: "' + convert(varchar(255),i.Id) + '",FirstName:"' + convert(varchar(255),i.FirstName) + '",LastName:"' + convert(varchar(255),i.LastName) + '",ModifiedOn:"' + convert(varchar(255),i.ModifiedOn) + '",CreatedOn:"' + convert(varchar(255),i.CreatedOn) + '"}') as Body
   from inserted i
 	END
 GO
