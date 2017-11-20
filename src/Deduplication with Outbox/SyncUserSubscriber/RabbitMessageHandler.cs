@@ -21,7 +21,7 @@
             if (!message.Id.HasValue)
                 throw new Exception("The record can't be synced because the Id is null");
 
-            var sqlDateTime = Convert.ToDateTime(SqlDateTime.MinValue);
+            var sqlDateTime = Convert.ToDateTime(SqlDateTime.MinValue.ToString());
 
             var user = new User
             {
