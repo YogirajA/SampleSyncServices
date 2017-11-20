@@ -1,6 +1,7 @@
 namespace SyncUserSubscriber
 {
     using System.Threading.Tasks;
+    using Messages.V1;
     using NServiceBus;
 
     public class RabbitMqEndpoint
@@ -13,10 +14,10 @@ namespace SyncUserSubscriber
           	transport.Transactions(TransportTransactionMode.None);
             //transport.DelayedDelivery().DisableTimeoutManager();
 
-
             endpointConfiguration.SendFailedMessagesTo("error");
             endpointConfiguration.EnableInstallers();
             endpointConfiguration.UsePersistence<InMemoryPersistence>();
+            endpointConfiguration.EnableOutbox();
             endpointConfiguration.UseSerialization<JsonSerializer>();
             endpointConfiguration.RegisterComponents(configure =>
             {

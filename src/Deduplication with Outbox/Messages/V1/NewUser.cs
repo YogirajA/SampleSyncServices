@@ -5,7 +5,8 @@
 
     //It is recommended to have Nullable properties in the messages than defaults such as DateTime.MinValue or Int defaulting to 0
     //It is also recommended to have Version in the namespace
-    public class NewUser:IMessage
+   // [TimeToBeReceived("300")]
+    public class NewUser: IMessage
     {
         public Guid? Id { get; set; }
         public string FirstName { get; set; }

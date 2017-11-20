@@ -1,7 +1,9 @@
 namespace SyncUsersEndpoints
 {
     using System.Threading.Tasks;
+    using Messages.V1;
     using NServiceBus;
+    using NServiceBus.Persistence.Sql;
     using RabbitMQ.Client;
 
     public class SqlServerEndpoint
@@ -29,11 +31,15 @@ namespace SyncUsersEndpoints
                         dependencyLifecycle: DependencyLifecycle.InstancePerUnitOfWork);
 
                 });
+        
+
             endpointConfiguration.UsePersistence<InMemoryPersistence>();
+            endpointConfiguration.EnableOutbox();
             endpointConfiguration.SendFailedMessagesTo("error");
             endpointConfiguration.AuditProcessedMessagesTo("audit");
-            endpointConfiguration.UseSerialization<JsonSerializer>();
-            Instance = await Endpoint.Start(endpointConfiguration).ConfigureAwait(false); ;
+            endpointConfiguration.UseSerialization<JsonSerializer>(); 
+          //  endpointConfiguration.UseSerialization<NewtonsoftSerializer>();
+            Instance = await Endpoint.Start(endpointConfiguration).ConfigureAwait(false); 
         }
     }
 }

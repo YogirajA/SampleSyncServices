@@ -4,7 +4,6 @@ namespace SyncUsersEndpoints
     using System.Collections.Generic;
     using System.Text;
     using System.Threading.Tasks;
-    using Messages;
     using Messages.V1;
     using Newtonsoft.Json.Linq;
     using NServiceBus;
