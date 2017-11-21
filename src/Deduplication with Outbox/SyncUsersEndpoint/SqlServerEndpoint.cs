@@ -1,8 +1,9 @@
 namespace SyncUsersEndpoints
 {
+    using System.Data.SqlClient;
     using System.Threading.Tasks;
-    using Messages.V1;
     using NServiceBus;
+    using NServiceBus.Features;
     using NServiceBus.Persistence.Sql;
     using RabbitMQ.Client;
 
@@ -11,9 +12,11 @@ namespace SyncUsersEndpoints
         public static IEndpointInstance Instance { get; private set; }
         public  static async Task StartInstance()
         {
+            var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["UsersAppDatabase"].ConnectionString;
+
             var endpointConfiguration = new EndpointConfiguration("SyncUsers.SqlServerEndpoint");
             var transport = endpointConfiguration.UseTransport<SqlServerTransport>()
-                .ConnectionStringName("UsersAppDatabase");
+                .ConnectionString(connectionString);
             transport.Transactions(TransportTransactionMode.None);
             var factory = new ConnectionFactory
             {
@@ -31,9 +34,13 @@ namespace SyncUsersEndpoints
                         dependencyLifecycle: DependencyLifecycle.InstancePerUnitOfWork);
 
                 });
-        
 
-            endpointConfiguration.UsePersistence<InMemoryPersistence>();
+            var persistence = endpointConfiguration.UsePersistence<SqlPersistence>();
+            persistence.SqlVariant(SqlVariant.MsSqlServer);
+            persistence.ConnectionBuilder(
+                connectionBuilder: () => new SqlConnection(connectionString));
+            persistence.SubscriptionSettings().DisableCache();
+            endpointConfiguration.DisableFeature<TimeoutManager>();
             endpointConfiguration.EnableOutbox();
             endpointConfiguration.SendFailedMessagesTo("error");
             endpointConfiguration.AuditProcessedMessagesTo("audit");

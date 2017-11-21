@@ -4,6 +4,6 @@
     <TargetFrameworks>net471</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="NServiceBus" Version="6.*" />
+    <PackageReference Include="NServiceBus" Version="6.4.2" />
   </ItemGroup>
 </Project>

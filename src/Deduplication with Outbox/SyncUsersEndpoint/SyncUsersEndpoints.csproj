@@ -5,7 +5,7 @@
     <OutputType>Exe</OutputType>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="NServiceBus" Version="6.*" />
+    <PackageReference Include="NServiceBus" Version="6.4.2" />
     <PackageReference Include="EntityFramework" Version="6.*" />
     <PackageReference Include="NServiceBus.Persistence.Sql" Version="2.2.0" />
     <PackageReference Include="NServiceBus.SqlServer" Version="3.*" />
@@ -13,5 +13,8 @@
     <PackageReference Include="Microsoft.Diagnostics.Tracing.EventSource.Redist" Version="1.*" />
     <PackageReference Include="Newtonsoft.Json" Version="10.*" />
     <ProjectReference Include="..\Messages\Messages.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Configuration" />
   </ItemGroup>
 </Project>
